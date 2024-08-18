@@ -1,0 +1,112 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+ 
+public class sub {
+ 
+	/*
+	 * /\_/\ (= ._.) / > \>
+	 */
+	
+	static int mod = 1000000007;
+ 
+	public static void main(String args[]) {
+		int t = sc.nextInt();
+		while (t-- > 0) {
+			int high = 999;
+			int low = 1;
+			while(high-low>2) {
+				int a = low+(high-low)/3;
+				int b = high-(high-low)/3;
+				out.println("? "+a+" "+b);
+				out.flush();
+				int area = sc.nextInt();
+				if((a+1)*(b+1)==area) {
+					high=a;
+				}
+				else if(area==a*b) {
+					low=b;
+				}
+				else {
+					low=a;
+					high=b;
+				}
+			}
+			//low is guarenteed to be correct/ below x
+			if(high-low==2) {
+				out.println("? "+1+" "+(low+1));
+				out.flush();
+				int area = sc.nextInt();
+				if(area!=low+1) {
+					high=low+1;
+				}
+			}
+			out.println("! "+high);
+		}
+		out.close();
+	}
+	
+	/*
+	public static long binco(int n, int k) {
+		if(n < k) return 0L;
+		return (p[n] * pow((p[n - k] * p[k]) % mod, mod - 2,mod))%mod;
+	}*/
+	
+	static long pow(long a, long b, long mod) {
+		if (b == 0) {
+			return 1L;
+		}
+		long val = pow(a, b / 2, mod);
+		if (b % 2 == 0) {
+			return val * val % mod;
+		}
+		return val * val % mod * a % mod;
+	}
+ 
+	static int gcd(int a, int b) {
+		if (b == 0) {
+			return a;
+		}
+		return gcd(b, a % b);
+	}
+ 
+	static int lcm(int a, int b) {
+		return a * b / gcd(a, b);
+	}
+ 
+	static Kattio sc = new Kattio();
+	static PrintWriter out = new PrintWriter(System.out);
+ 
+	static class Kattio {
+		static BufferedReader r;
+		static StringTokenizer st;
+ 
+		public Kattio() {
+			r = new BufferedReader(new InputStreamReader(System.in));
+		}
+ 
+		public String next() {
+			try {
+				while (st == null || !st.hasMoreTokens()) {
+					st = new StringTokenizer(r.readLine());
+				}
+				return st.nextToken();
+			} catch (Exception e) {
+				return null;
+			}
+		}
+ 
+		public int nextInt() {
+			return Integer.parseInt(next());
+		}
+ 
+		public long nextLong() {
+			return Long.parseLong(next());
+		}
+ 
+		public double nextDouble() {
+			return Double.parseDouble(next());
+		}
+	}
+ 
+}
